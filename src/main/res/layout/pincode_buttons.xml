@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/buttons_layout"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/button_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/transparent"
+            android:text="1"
+            android:textSize="@dimen/text_size_very_large"
+            android:minHeight="@dimen/button_size"
+            android:minWidth="@dimen/button_size"
+            style="@style/Widget.AppCompat.ButtonBar"
+            android:layout_margin="@dimen/margin"
+            android:fontFamily="sans-serif-thin"/>
+
+        <Button
+            android:id="@+id/button_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/transparent"
+            android:text="2"
+            style="@style/Widget.AppCompat.ButtonBar"
+            android:textSize="@dimen/text_size_very_large"
+            android:minHeight="@dimen/button_size"
+            android:minWidth="@dimen/button_size"
+            android:layout_margin="@dimen/margin"
+            android:fontFamily="sans-serif-thin"/>
+
+        <Button
+            android:id="@+id/button_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/transparent"
+            android:text="3"
+            android:textSize="@dimen/text_size_very_large"
+            android:minHeight="@dimen/button_size"
+            android:minWidth="@dimen/button_size"
+            style="@style/Widget.AppCompat.ButtonBar"
+            android:layout_margin="@dimen/margin"
+            android:fontFamily="sans-serif-thin"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/button_4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/transparent"
+            android:text="4"
+            android:textSize="@dimen/text_size_very_large"
+            android:minHeight="@dimen/button_size"
+            android:minWidth="@dimen/button_size"
+            style="@style/Widget.AppCompat.ButtonBar"
+            android:layout_margin="@dimen/margin"
+            android:fontFamily="sans-serif-thin"/>
+
+        <Button
+            android:id="@+id/button_5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/transparent"
+            android:text="5"
+            style="@style/Widget.AppCompat.ButtonBar"
+            android:textSize="@dimen/text_size_very_large"
+            android:minHeight="@dimen/button_size"
+            android:minWidth="@dimen/button_size"
+            android:layout_margin="@dimen/margin"
+            android:fontFamily="sans-serif-thin"/>
+
+        <Button
+            android:id="@+id/button_6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/transparent"
+            android:text="6"
+            android:textSize="@dimen/text_size_very_large"
+            android:minHeight="@dimen/button_size"
+            android:minWidth="@dimen/button_size"
+            style="@style/Widget.AppCompat.ButtonBar"
+            android:layout_margin="@dimen/margin"
+            android:fontFamily="sans-serif-thin"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/button_7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/transparent"
+            android:text="7"
+            android:textSize="@dimen/text_size_very_large"
+            android:minHeight="@dimen/button_size"
+            android:minWidth="@dimen/button_size"
+            style="@style/Widget.AppCompat.ButtonBar"
+            android:layout_margin="@dimen/margin"
+            android:fontFamily="sans-serif-thin"/>
+
+        <Button
+            android:id="@+id/button_8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/transparent"
+            android:text="8"
+            style="@style/Widget.AppCompat.ButtonBar"
+            android:textSize="@dimen/text_size_very_large"
+            android:minHeight="@dimen/button_size"
+            android:minWidth="@dimen/button_size"
+            android:layout_margin="@dimen/margin"
+            android:fontFamily="sans-serif-thin"/>
+
+        <Button
+            android:id="@+id/button_9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/transparent"
+            android:text="9"
+            android:textSize="@dimen/text_size_very_large"
+            android:minHeight="@dimen/button_size"
+            android:minWidth="@dimen/button_size"
+            style="@style/Widget.AppCompat.ButtonBar"
+            android:layout_margin="@dimen/margin"
+            android:fontFamily="sans-serif-thin"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageButton
+            android:id="@+id/button_clear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/transparent"
+            android:src="@drawable/clear"
+            android:minHeight="@dimen/button_size"
+            android:minWidth="@dimen/button_size"
+            style="@style/Widget.AppCompat.ButtonBar"
+            android:layout_margin="@dimen/margin"
+            tools:ignore="ContentDescription" />
+
+        <Button
+            android:id="@+id/button_0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/transparent"
+            android:text="0"
+            style="@style/Widget.AppCompat.ButtonBar"
+            android:textSize="@dimen/text_size_very_large"
+            android:minHeight="@dimen/button_size"
+            android:minWidth="@dimen/button_size"
+            android:layout_margin="@dimen/margin"
+            android:fontFamily="sans-serif-thin"/>
+
+        <ImageButton
+            android:id="@+id/button_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/transparent"
+            android:src="@drawable/delete"
+            android:minHeight="@dimen/button_size"
+            android:minWidth="@dimen/button_size"
+            style="@style/Widget.AppCompat.ButtonBar"
+            android:layout_margin="@dimen/margin"
+            tools:ignore="ContentDescription" />
+
+        <!--Can some1 fix this shit???-->
+        <Button
+            android:id="@+id/button_fake"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"/>
+
+
+    </LinearLayout>
+
+</LinearLayout>
