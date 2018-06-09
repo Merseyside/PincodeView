@@ -1,0 +1,15 @@
+<resources>
+    <dimen name="margin">20dp</dimen>
+
+    <dimen name="pin_edittext_width">60dp</dimen>
+    <dimen name="image_size">30dp</dimen>
+    <dimen name="button_size">100dp</dimen>
+    <dimen name="button_text_size">@dimen/text_size_38sp</dimen>
+
+    <dimen name="pin_code_edit_margin">@dimen/margin</dimen>
+
+    <dimen name="text_size_medium">18sp</dimen>
+    <dimen name="text_size_large">24sp</dimen>
+    <dimen name="text_size_very_large">32sp</dimen>
+    <dimen name="text_size_38sp">38sp</dimen>
+</resources>

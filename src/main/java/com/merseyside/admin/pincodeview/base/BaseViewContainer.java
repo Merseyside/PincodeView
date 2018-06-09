@@ -89,8 +89,17 @@ public abstract class BaseViewContainer<T extends BaseViewItem> extends LinearLa
         return views;
     }
 
-    public void setPin(String pincode) {
-        views.get(pincode.length()-1).fill();
+    public void setPin(int count) {
+        if (count <= views.size())
+            views.get(count-1).fill();
+    }
+
+    public void refresh(int count) {
+        Log.d(TAG, "refresh = " + count);
+        for (int i = 0; i < count; i++) {
+            views.get(i).clear();
+            views.get(i).fill();
+        }
     }
 
     public void clearPinView() {

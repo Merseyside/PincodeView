@@ -2,6 +2,7 @@
 <resources>
     <declare-styleable name="PincodeView">
         <attr name="color" format="color" />
+        <attr name="error_color" format="color"/>
         <attr name="button_bg" format="reference"/>
         <attr name="image" format="reference"/>
         <attr name="type" format="enum" >

@@ -14,12 +14,10 @@ import com.merseyside.admin.pincodeview.items.ImageItem;
 public class ImageContainer extends BaseViewContainer<ImageItem> {
 
     private Drawable image;
-    private Context context;
 
     public ImageContainer(Context context, Drawable image) {
         super(context);
         this.image = image;
-        this.context = context;
     }
 
     public ImageContainer(Context context, @Nullable AttributeSet attrs) {
@@ -34,6 +32,6 @@ public class ImageContainer extends BaseViewContainer<ImageItem> {
     @Override
     protected ImageItem getNewItem() {
         Log.d("Item", "getNewImage");
-        return new ImageItem(context, image);
+        return new ImageItem(image);
     }
 }

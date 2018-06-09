@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">PincodeView</string>
+    <string name="repeat_pin">Pass your pincode one more time</string>
+    <string name="new_pin">Pass new pincode</string>
+    <string name="pins_not_the_same">Your pins are not the same. Please, try again</string>
+
 </resources>

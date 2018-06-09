@@ -1,11 +1,12 @@
 package com.merseyside.admin.pincodeview;
 
-
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
+import android.os.Vibrator;
+import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.AttributeSet;
@@ -13,13 +14,13 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-
-import android.support.annotation.NonNull;
+import android.widget.TextView;
 
 import com.merseyside.admin.pincodeview.base.BaseViewContainer;
 import com.merseyside.admin.pincodeview.containers.EditTextContainer;
@@ -99,6 +100,8 @@ public class PincodeView extends RelativeLayout implements View.OnClickListener 
     private final String DELETE_BUTTON_SYMBOL = "-1";
     private final String CLEAR_BUTTON_SYMBOL = "-2";
 
+    private Vibrator vibrator;
+
     private Handler timeoutHandler;
     private PincodeAccessListener listener;
     private PincodeSetupModeListener setupModeListener;
@@ -116,13 +119,16 @@ public class PincodeView extends RelativeLayout implements View.OnClickListener 
     /* Attrs */
 
     private int color;
+    private int error_color;
     private PincodeType type = PincodeType.TEXT;
     private Drawable buttonBackgroundImage;
     private Drawable imageDrawable;
+    private String wrongPinMsg;
+
+    private TextView message_view;
 
     public PincodeView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        Log.d(TAG, "constructor");
 
         this.context = context;
         handler = new Handler();
@@ -133,12 +139,16 @@ public class PincodeView extends RelativeLayout implements View.OnClickListener 
     private void loadAttrs(AttributeSet attrs) {
         TypedArray array = context.getTheme().obtainStyledAttributes(attrs, R.styleable.PincodeView, 0, 0);
 
-        if (array.getString(R.styleable.PincodeView_color) == null)
-            color = ContextCompat.getColor(context, Constants.DEFAULT_COLOR);
-        else {
+        if (array.getString(R.styleable.PincodeView_color) != null)
             color = Color.parseColor(array.getString(R.styleable.PincodeView_color));
-            Log.d(TAG, color + "");
-        }
+        else
+            color = ContextCompat.getColor(context, Constants.DEFAULT_COLOR);
+
+        if (array.getString(R.styleable.PincodeView_error_color) != null)
+            error_color = Color.parseColor(array.getString(R.styleable.PincodeView_error_color));
+        else
+            error_color = ContextCompat.getColor(context, Constants.DEFAULT_ERROR_COLOR);
+
         buttonBackgroundImage = array.getDrawable(R.styleable.PincodeView_button_bg);
         type = PincodeType.fromId(array.getInt(R.styleable.PincodeView_type, 0));
         if (type == PincodeType.IMAGE) {
@@ -149,7 +159,21 @@ public class PincodeView extends RelativeLayout implements View.OnClickListener 
         }
     }
 
+    @Override
+    protected void onWindowVisibilityChanged(int visibility) {
+        if (visibility == View.VISIBLE) {
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    container.refresh(pincode.length());
+                }
+            }, 200);
+        }
+    }
+
     private void initializeView() {
+
+        vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
         LayoutInflater.from(context).inflate(R.layout.pincode_view, this);
         switch(type) {
             case TEXT:
@@ -163,12 +187,14 @@ public class PincodeView extends RelativeLayout implements View.OnClickListener 
         linearContainer.addView(container);
         initButtonsView(findViewById(R.id.buttons_layout));
 
+        message_view = findViewById(R.id.message);
+
     }
 
     private void initButtonsView(View view) {
-        if (view instanceof LinearLayout) {
-            for (int i = 0; i < ((LinearLayout) view).getChildCount(); i++) {
-                initButtonsView(((LinearLayout) view).getChildAt(i));
+        if (view instanceof ViewGroup) {
+            for (int i = 0; i < ((ViewGroup) view).getChildCount(); i++) {
+                initButtonsView(((ViewGroup) view).getChildAt(i));
             }
         } else {
             view.setOnClickListener(this);
@@ -238,10 +264,15 @@ public class PincodeView extends RelativeLayout implements View.OnClickListener 
         container.clearPinView();
         if (setupMode && pinLength != 0) {
             setPinLength(pinLength);
+            setMessage(context.getString(R.string.new_pin), false);
         }
     }
 
     private void onButtonPressed(String value) {
+        vibrator.vibrate(Constants.VIBRATE_SHORT);
+        if (message_view.getVisibility() == View.VISIBLE)
+            message_view.startAnimation(AnimationManager.setFadeOutForView(context, message_view));
+
         if (value.equals(DELETE_BUTTON_SYMBOL)) {
             if (pincode.length() != 0) {
                 pincode = deleteLastSymbol(pincode);
@@ -259,18 +290,21 @@ public class PincodeView extends RelativeLayout implements View.OnClickListener 
             return;
         }
 
-        container.setPin(pincode);
+        container.setPin(pincode.length());
 
         if (pincode.length() == container.getPinLength()) {
             if (setupMode) {
                 if (TextUtils.isEmpty(setupPincode)) {
                     setupPincode = pincode;
+                    setMessage(context.getString(R.string.repeat_pin), false);
                     if (setupModeListener != null) setupModeListener.passPinOneMoreTime();
 
                 } else {
                     if (setupPincode.equals(pincode)) {
                         if (setupModeListener != null) setupModeListener.newPincodeSetUp(pincode);
                     } else {
+                        vibrator.vibrate(Constants.VIBRATE_LONG);
+                        setMessage(context.getString(R.string.pins_not_the_same), true);
                         if (setupModeListener != null) setupModeListener.differentPins();
                     }
                     setupPincode = "";
@@ -281,12 +315,25 @@ public class PincodeView extends RelativeLayout implements View.OnClickListener 
                     if (isPinCorrect(pincode)) {
                         listener.accessGranted();
                     } else {
+                        vibrator.vibrate(Constants.VIBRATE_LONG);
+                        setMessage(wrongPinMsg, true);
                         listener.accessDenied();
                         handler.postDelayed(clearPinRunnable, Constants.DELAY_MILLIS);
                     }
                 }
             }
         }
+    }
+
+    private void setMessage(String message, boolean isError) {
+        message_view.setText(message);
+        if (isError) {
+            message_view.setTextColor(error_color);
+        } else {
+            message_view.setTextColor(color);
+        }
+        Animation anim = AnimationManager.setFadeInForView(context, message_view);
+        message_view.startAnimation(anim);
     }
 
 
@@ -313,6 +360,10 @@ public class PincodeView extends RelativeLayout implements View.OnClickListener 
 
     private boolean isPinCorrect(String pincode) {
         return pincode.equals(correct_pin);
+    }
+
+    public void setWrongPinMsg(String msg) {
+        wrongPinMsg = msg;
     }
 
 
