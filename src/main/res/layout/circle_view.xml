@@ -10,6 +10,7 @@
     android:scaleType="fitCenter"
     android:layout_margin="@dimen/margin"
     android:adjustViewBounds="true"
+    android:background="@color/transparent"
     tools:ignore="ContentDescription">
 
 </ImageView>

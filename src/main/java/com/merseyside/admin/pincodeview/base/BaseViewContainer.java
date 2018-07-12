@@ -4,6 +4,7 @@ package com.merseyside.admin.pincodeview.base;
 import android.content.Context;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -29,6 +30,7 @@ public abstract class BaseViewContainer<T extends BaseViewItem> extends LinearLa
     public BaseViewContainer(Context context) {
         super(context);
         this.context = context;
+        setBackgroundColor(ContextCompat.getColor(context, R.color.transparent));
         initializeView();
     }
 
@@ -36,6 +38,7 @@ public abstract class BaseViewContainer<T extends BaseViewItem> extends LinearLa
         super(context, attrs);
 
         this.context = context;
+        setBackgroundColor(ContextCompat.getColor(context, R.color.transparent));
         initializeView();
     }
 

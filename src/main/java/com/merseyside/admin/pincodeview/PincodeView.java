@@ -116,6 +116,8 @@ public class PincodeView extends RelativeLayout implements View.OnClickListener 
     private boolean setupMode;
     private String setupPincode;
 
+    private Animation anim;
+
     /* Attrs */
 
     private int color;
@@ -271,7 +273,7 @@ public class PincodeView extends RelativeLayout implements View.OnClickListener 
     private void onButtonPressed(String value) {
         vibrator.vibrate(Constants.VIBRATE_SHORT);
         if (message_view.getVisibility() == View.VISIBLE)
-            message_view.startAnimation(AnimationManager.setFadeOutForView(context, message_view));
+            startAnimation(message_view, AnimationManager.setFadeOutForView(context, message_view));
 
         if (value.equals(DELETE_BUTTON_SYMBOL)) {
             if (pincode.length() != 0) {
@@ -332,10 +334,16 @@ public class PincodeView extends RelativeLayout implements View.OnClickListener 
         } else {
             message_view.setTextColor(color);
         }
-        Animation anim = AnimationManager.setFadeInForView(context, message_view);
-        message_view.startAnimation(anim);
+        startAnimation(message_view, AnimationManager.setFadeInForView(context, message_view));
     }
 
+    private void startAnimation(View view, Animation anim) {
+        if (this.anim == null || (this.anim.hasStarted() && this.anim.hasEnded())) {
+            this.anim = anim;
+
+            view.startAnimation(anim);
+        }
+    }
 
     private Runnable clearPinRunnable = new Runnable() {
         @Override
@@ -405,5 +413,4 @@ public class PincodeView extends RelativeLayout implements View.OnClickListener 
             listener.timeout();
         }
     };
-
 }
