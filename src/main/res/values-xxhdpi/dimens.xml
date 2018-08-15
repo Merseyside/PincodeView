@@ -4,7 +4,8 @@
     <dimen name="pin_edittext_width">40dp</dimen>
     <dimen name="image_size">16dp</dimen>
     <dimen name="button_size">60dp</dimen>
-    <dimen name="button_text_size">@dimen/text_size_28sp</dimen>
+    <dimen name="pincode_button_text_size">@dimen/text_size_28sp</dimen>
+    <dimen name="pincode_text_size">@dimen/text_size_14sp</dimen>
 
     <dimen name="pin_code_edit_margin">@dimen/margin</dimen>
 
