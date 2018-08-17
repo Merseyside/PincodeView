@@ -101,6 +101,7 @@ public class PincodeView extends RelativeLayout implements View.OnClickListener 
     private final String CLEAR_BUTTON_SYMBOL = "-2";
 
     private Vibrator vibrator;
+    private boolean isVibrate = true;
 
     private Handler timeoutHandler;
     private PincodeAccessListener listener;
@@ -271,7 +272,7 @@ public class PincodeView extends RelativeLayout implements View.OnClickListener 
     }
 
     private void onButtonPressed(String value) {
-        vibrator.vibrate(Constants.VIBRATE_SHORT);
+        vibrate(Constants.VIBRATE_SHORT);
         if (message_view.getVisibility() == View.VISIBLE)
             startAnimation(message_view, AnimationManager.setFadeOutForView(context, message_view));
 
@@ -305,7 +306,7 @@ public class PincodeView extends RelativeLayout implements View.OnClickListener 
                     if (setupPincode.equals(pincode)) {
                         if (setupModeListener != null) setupModeListener.newPincodeSetUp(pincode);
                     } else {
-                        vibrator.vibrate(Constants.VIBRATE_LONG);
+                        vibrate(Constants.VIBRATE_LONG);
                         setMessage(context.getString(R.string.pins_not_the_same), true);
                         if (setupModeListener != null) setupModeListener.differentPins();
                     }
@@ -317,7 +318,7 @@ public class PincodeView extends RelativeLayout implements View.OnClickListener 
                     if (isPinCorrect(pincode)) {
                         listener.accessGranted();
                     } else {
-                        vibrator.vibrate(Constants.VIBRATE_LONG);
+                        vibrate(Constants.VIBRATE_LONG);
                         setMessage(wrongPinMsg, true);
                         listener.accessDenied();
                         handler.postDelayed(clearPinRunnable, Constants.DELAY_MILLIS);
@@ -374,7 +375,14 @@ public class PincodeView extends RelativeLayout implements View.OnClickListener 
         wrongPinMsg = msg;
     }
 
+    public void setVibration(boolean isVibrate) {
+        this.isVibrate = isVibrate;
+    }
 
+    private void vibrate(int duration) {
+        if (isVibrate)
+            vibrator.vibrate(duration);
+    }
 
     /* Timeout */
 
