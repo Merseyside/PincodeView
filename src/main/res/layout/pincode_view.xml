@@ -15,7 +15,8 @@
         android:visibility="invisible"
         android:textAlignment="center"
         android:layout_above="@+id/buttons_layout"
-        android:textSize="@dimen/pincode_text_size"/>
+        android:textSize="@dimen/pincode_text_size"
+        tools:ignore="UnknownIdInLayout" />
 
     <FrameLayout
         android:id="@+id/container_view"
