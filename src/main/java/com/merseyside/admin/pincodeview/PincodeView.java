@@ -6,8 +6,8 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Vibrator;
-import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
+import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -153,7 +153,7 @@ public class PincodeView extends RelativeLayout implements View.OnClickListener 
             error_color = ContextCompat.getColor(context, Constants.DEFAULT_ERROR_COLOR);
 
         buttonBackgroundImage = array.getDrawable(R.styleable.PincodeView_button_bg);
-        type = PincodeType.fromId(array.getInt(R.styleable.PincodeView_type, 0));
+        type = PincodeType.fromId(array.getInt(R.styleable.PincodeView_pin_type, 0));
         if (type == PincodeType.IMAGE) {
             if ((imageDrawable = array.getDrawable(R.styleable.PincodeView_image)) == null) {
                 type = PincodeType.TEXT;

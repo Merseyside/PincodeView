@@ -2,10 +2,9 @@ package com.merseyside.admin.pincodeview.containers;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.widget.ImageView;
 
 import com.merseyside.admin.pincodeview.R;
 import com.merseyside.admin.pincodeview.base.BaseViewContainer;

@@ -5,7 +5,7 @@
         <attr name="error_color" format="color"/>
         <attr name="button_bg" format="reference"/>
         <attr name="image" format="reference"/>
-        <attr name="type" format="enum" >
+        <attr name="pin_type" format="enum" >
             <enum name="text" value="0"/>
             <enum name="image" value="1"/>
         </attr>
